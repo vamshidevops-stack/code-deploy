@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  -source: src/
+  destination: /var/www/html
+permissions:
+  -objects: /var/www/html
+  patterns: "**"
+  owner: apache
+  group: apache
+  mode: 755
+  type:
+    -file
+  hooks:
+    BeforeInstall:
+      -locations: scripts/installapache.sh
+       runas: root
+      -locations: scripts/startapache.sh
+       runas: root
+    Afterinstall:
+      -locations: scripts/restartapache.sh
+       runas: root
